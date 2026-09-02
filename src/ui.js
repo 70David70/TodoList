@@ -1,8 +1,4 @@
 import {LevelSelector, findComponent} from './storage.js'
-//get project level
-    // for every project make a new project div and add it's name as it's title
-    //get the section level of that project
-        //for every section add its section div
 
 let projectsList = document.querySelector(".projects-list")
 let updateSideBar = () => {
@@ -10,11 +6,9 @@ let updateSideBar = () => {
     
     projectsList.innerHTML = "";
     let projects = LevelSelector().project;
-    for (let project of projects) {
-        
+    for (let project of projects) {        
         let sections = LevelSelector(project.name).section
 
-        //TODO: put all the info in corresponding divs
         projectsList.innerHTML += `
             <div class="project">
                 <div class="project-header">
@@ -38,4 +32,46 @@ let updateSideBar = () => {
     }
     
 }
-export{updateSideBar}
+
+//TODO: Create a update updateMainBody()
+//          have a variable to track which section is selected
+//          show the groups of the section in the main body
+let selectedProjectAndSection = ["myRoutine", "morning"];
+let updateMainBody = () => {
+    console.log(selectedProjectAndSection);
+    
+    let groups = LevelSelector(selectedProjectAndSection[0], selectedProjectAndSection[1]).group
+    let body = document.querySelector(".content-area")
+    body.innerHTML = "";
+    for (let group of groups) {
+        body.innerHTML += `
+            <div class="group">
+                <h1 class="group-title"> ${group.name}</h1>
+                <ul class="group-todos">
+                    ${group.todos.map(item => `<li class="group-todo-item">${item.name}</li>`).join('')}        
+                </ul>
+            </div>
+        `
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export{updateSideBar, updateMainBody}
