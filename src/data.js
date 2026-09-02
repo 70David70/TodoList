@@ -57,6 +57,6 @@ let temporaryData = [
 
 
 let AppStorage = [];
-let selectedStorage = AppStorage //use this in case you wanna change it to local storage or whatever
+let selectedStorage = temporaryData //use this in case you wanna change it to local storage or whatever
 
 export {AppStorage, selectedStorage}

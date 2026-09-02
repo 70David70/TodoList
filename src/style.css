@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+.sidebar {
+    display: flex;
+    align-items: center;
+    width: 30vw;
+    padding: 10px;
+    justify-content: space-between;
+    gap: 5px;
+}
+.sidebar-hide-btn {
+    height: fit-content;
+}
+.projects-list {
+    flex-grow: 2;
+}
+.project {
+    padding: 5px;
+    background-color: aliceblue;
+}
+.project-header {
+    display: flex;
+    justify-content: space-between;
+}
+.project-name {
+    display: inline;
+}
+.section {
+    list-style: none;
+}
