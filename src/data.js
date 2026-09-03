@@ -30,11 +30,11 @@ let temporaryData = [
                 groups: [
                     {
                         level: "group",
-                        name: "food",
+                        name: "sleep",
                         todos: [
                             {
                                 level: "todoItem",
-                                name: "feed the cat",
+                                name: "prepare environment",
                                 description: null,
                                 dueDate: null,
                                 priority: null,
@@ -50,7 +50,29 @@ let temporaryData = [
     {
         level: "project",
         name: "gameProject",
-        sections: []
+        sections: [
+            {
+                level: "section",
+                name: "graphics",
+                groups: [
+                    {
+                        level: "group",
+                        name: "lighting system",
+                        todos: [
+                            {
+                                level: "todoItem",
+                                name: "start coding",
+                                description: null,
+                                dueDate: null,
+                                priority: null,
+                                notes: null,
+                                checked: false,
+                            },
+                        ]
+                    },
+                ]
+            },
+        ]
     }
 ]
 

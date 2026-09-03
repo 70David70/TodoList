@@ -57,6 +57,20 @@ let updateMainBody = () => {
 
 
 
+//buttons
+let sideBar = document.querySelector(".sidebar")
+sideBar.addEventListener('click', (e)=> {
+    if (e.target.classList.contains("section")) {
+        selectedProjectAndSection[0] = e.target.closest('.project').querySelector('.project-name').textContent;
+        selectedProjectAndSection[1] = e.target.textContent;
+        
+        updateMainBody()
+    };
+    
+})
+
+
+
 
 
 
