@@ -22,7 +22,7 @@ let updateSideBar = () => {
                     </div>    
                     <div class="sections">
                         <ul>
-                            ${sections.map(section => `<li class="section">${section.name}</li>`).join('')}
+                            ${sections.map(section => `<li class="section">${section.name}</li> <button class="delete-section-btn">DELETE</button>`).join('')}
                         </ul>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ let selectedProjectAndSection = ["myRoutine", "morning"];
 let updateMainBody = () => {
     
     let groups = LevelSelector(selectedProjectAndSection[0], selectedProjectAndSection[1]).group
-    let body = document.querySelector(".content-area")
+    let body = document.querySelector(".groups-list")
     body.innerHTML = "";
     for (let group of groups) {
         body.innerHTML += `
