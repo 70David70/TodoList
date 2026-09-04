@@ -1,8 +1,10 @@
 * {
     box-sizing: border-box;
+    transition: 0.1s ease-out;
 }
 body {
     display: flex;
+    margin: 0;
     align-items: center;
     height: 100vh;
 }
@@ -44,4 +46,39 @@ li {
     padding: 5px;
     height: 50vh;
     width: 20vw;
+}
+
+.details-window {
+    z-index: 2;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    height: 70vh;
+    width: 70vw;
+
+    background-color: rgb(196, 207, 192);
+    border: 2px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.close-window-btn {
+    width: fit-content;
+    position: relative;
+    left: 98%;
+}
+.window-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.window-todo-item {
+    display: flex;
 }
