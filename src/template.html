@@ -7,24 +7,39 @@
     </head>
     <body>
         <div class="sidebar">
-            <div class="projects-list"></div>
-            <button class="sidebar-hide-btn">HIDE</button>
+            <div style="height: 100%; width: 100%;">
+                <button class="add-project-btn open-addWindow-btn" data-owner="project" >ADD</button>
+                <div class="projects-list"></div>
+            </div>
+            <div class="hide-show-btn-space">
+                <button class="sidebar-hide-btn">HIDE</button>
+            </div>
         </div>
         <div class="content-area">
             <div class="groups-list"></div>
-            <button class="add-group-btn">ADD</button>
+            <button id="add-group-btn" class="open-addWindow-btn" data-owner="group">ADD</button>
         </div>
         <div class="details-window hide">
             <button class="close-window-btn">CLOSE</button>
-            <h1 class="window-title"></h1>
+            <div>
+                <h1 class="window-title"></h1>
+                <button>EDIT</button>
+            </div>
             <div class="window-todos">
                 
             </div>
             <div class="window-buttons">
                 <button class="delete-window-btn">DELETE</button>
-                <button class="add-todo-btn">ADD</button>
+                <button id="add-todo-btn" class="open-addWindow-btn" data-owner="todo">ADD</button>
             </div>
 
+        </div>
+        <div class="add-window hide">
+            <button class="close-addWindow-btn">CLOSE</button>
+            <h1 class="window-title"></h1>
+            <form id="input-form">
+
+            </form>
         </div>
     </body>
 </html>

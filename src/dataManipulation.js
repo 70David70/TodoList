@@ -2,8 +2,8 @@ import { LevelSelector } from "./storage.js";
 import { selectedStorage } from "./data.js";
 
 let addComponent = (familyTree = [], level, name, description = "",
-                     dueDate = "", priority = 1, notes = "", checked = false)=> {
-    //example use: addComponent(["myRoutine", "morning", "food"], "todos", "whatever", "", "", number, "", bool)
+                     dueDate = "", priority = 1, checked = false)=> {
+    //example use: addComponent(["myRoutine", "morning", "food"], "todos", "whatever", "", "", number, bool)
 
         if (!level || !name) {
         throw new Error("please assign level and name to function: Add")
@@ -19,7 +19,7 @@ let addComponent = (familyTree = [], level, name, description = "",
     if (storageLevel == "todos") {
         let itemToAdd = {
             level: level, name: name, description: description, dueDate: dueDate,
-            priority: priority, notes: notes, checked: checked,
+            priority: priority, checked: checked,
         }
         selectedLevel.push(itemToAdd)
     }
@@ -87,9 +87,6 @@ let editComponent = (familyTree = [], name, levelOfTarget)=> {
     let editPriority = (newPriority)=> {
         if (target.level == "todoItem") target.priority = newPriority
     }
-    let editNotes = (newNotes)=> {
-        if (target.level == "todoItem") target.notes = newNotes
-    }
     let editChecked = (newChecked)=> {
         if (target.level == "todoItem") target.checked = newChecked
     }
@@ -100,7 +97,6 @@ let editComponent = (familyTree = [], name, levelOfTarget)=> {
         "editDescription": editDescription,
         "editDueDate": editDueDate,
         "editPriority": editPriority,
-        "editNote": editNotes,
         "editChecked": editChecked}
 }
 
