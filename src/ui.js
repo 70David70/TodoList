@@ -14,7 +14,7 @@ let updateSideBar = () => {
             <div class="project">
                 <div class="project-header">
                     <button id="add-section-btn" class="open-addWindow-btn" data-owner="section">add</button>
-                    <button id="delete-project-btn">delete</button>
+                    <button id="delete-project-btn" class="delete-btn" data-level="project" data-familyTree="${project.name}" data-deleteTarget="${project.name}">delete</button>
                 </div>
                 <div class="project-details">
                     <div class="project-title">
@@ -23,7 +23,7 @@ let updateSideBar = () => {
                     </div>    
                     <div class="sections">
                         <ul>
-                            ${sections.map(section => `<li class="section">${section.name}</li> <button class="delete-section-btn">DELETE</button>`).join('')}
+                            ${sections.map(section => `<li class="section">${section.name}</li> <button class="delete-section-btn delete-btn" data-level="section" data-familyTree="${project.name}, ${section.name}" data-deleteTarget="${section.name}">DELETE</button>`).join('')}
                         </ul>
                     </div>
                 </div>
@@ -38,9 +38,25 @@ let updateSideBar = () => {
 let selectedProjectAndSection = ["myRoutine", "morning"];
 let updateMainBody = () => {
     
-    let groups = LevelSelector(selectedProjectAndSection[0], selectedProjectAndSection[1]).group
     let body = document.querySelector(".groups-list")
+    let addGroupBtn = document.querySelector("#add-group-btn")
     body.innerHTML = "";
+
+    // If no active project/section is selected, early return
+    addGroupBtn.disabled = false
+    if (!selectedProjectAndSection[0] || !selectedProjectAndSection[1]) {
+        if (addGroupBtn) addGroupBtn.disabled = true;
+        return;
+    }
+
+    let targetData = LevelSelector(selectedProjectAndSection[0], selectedProjectAndSection[1]);
+
+    // Safety check in case LevelSelector returns undefined
+    if (!targetData || !targetData.group) {
+        return;
+    }
+    
+    let groups = LevelSelector(selectedProjectAndSection[0], selectedProjectAndSection[1]).group
     for (let group of groups) {
         body.innerHTML += `
             <div class="group">
@@ -74,7 +90,7 @@ let updateWindow= () => {
 
     console.log(targetTodos);
     
-    //render todos:
+    // Render todos:
     todosPlace.innerHTML = ""
     for (let todo of targetTodos) {
         todosPlace.innerHTML += `
@@ -85,10 +101,23 @@ let updateWindow= () => {
                     ${todo.description ? `<p class="todo-description">${todo.description}</p>` : ''}
                     ${todo.dueDate ? `<p class="todo-duedate">${todo.dueDate}</p>` : ''}
                 </div>
-                <button class="delete-todo-btn">DELETE</button>
+                <button class="delete-todo-btn delete-btn" 
+                        data-level="todos" 
+                        data-familytree="${selectedProjectAndSection[0]}, ${selectedProjectAndSection[1]}, ${chosenGroup}" 
+                        data-deletetarget="${todo.name}">DELETE</button>
             </div>
         `
     }
+
+    // Render group delete button:
+    let buttonsPlace = document.querySelector(".window-buttons")
+    buttonsPlace.innerHTML = `
+        <button class="delete-todo-btn delete-btn" 
+                data-level="group" 
+                data-familytree="${selectedProjectAndSection[0]}, ${selectedProjectAndSection[1]}" 
+                data-deletetarget="${chosenGroup}">DELETE</button>
+        <button id="add-todo-btn" class="open-addWindow-btn" data-owner="todo">ADD</button>
+`
     
     
 }
@@ -177,6 +206,40 @@ body.addEventListener('click', (e)=> {
         addWindow.classList.toggle("hide")
     }
 
+    //delete button
+    
+    if (e.target.classList.contains("delete-btn")) {
+        console.log("delete button pressed");
+        
+        
+        // Convert comma-separated string attribute to an array of trimmed strings
+        let familyTree = e.target.dataset.familytree 
+            ? e.target.dataset.familytree.split(',').map(s => s.trim()) 
+            : [];
+            console.log(familyTree);
+        let level = e.target.dataset.level;
+        let target = e.target.dataset.deletetarget;
+        
+        deleteComponent(familyTree, level, target);
+
+        // If deleting the active project or section, reset selection
+        if (level === "project" && target === selectedProjectAndSection[0]) {
+            selectedProjectAndSection = ["", ""];
+        } else if (level === "section" && target === selectedProjectAndSection[1] && familyTree[0] === selectedProjectAndSection[0]) {
+            selectedProjectAndSection[1] = ""; 
+        }
+
+        // Close or refresh modal on group/todo deletion
+        if (level === "group") {
+            window.classList.add("hide");
+        } else if (level === "todos") {
+            updateWindow();
+        }
+
+        updateSideBar();
+        updateMainBody();
+    }
+
 })
 
 let form = document.querySelector('#input-form')
@@ -202,9 +265,6 @@ form.addEventListener('submit', (e)=> {
 
 
 // wire button to functions
-    //add buttons
-
-
 
     // delete buttons
 

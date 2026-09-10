@@ -43,7 +43,7 @@ let deleteComponent = (familyTree = [], level, name)=> {
     //example use deleteComponent(["myRoutine", "morning", "food"], "todos", "feed the cat")
 
         if (!level || !name) {
-        throw new Error("please assign level and name to function: Add")
+        throw new Error("please assign level and name to function: deleteComponent")
     }
     
 
